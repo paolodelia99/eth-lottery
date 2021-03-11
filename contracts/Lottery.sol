@@ -1,7 +1,6 @@
 //SPDX-License-Identifier: MIT
 pragma solidity >=0.7.0 <=0.8.2;
 
-// import "@openzeppelin/contracts/access/Ownable.sol";
 import "@openzeppelin/contracts/utils/Pausable.sol";
 
 contract Lottery is Pausable {
@@ -28,7 +27,7 @@ contract Lottery is Pausable {
 
     constructor(uint256 _ticketAmount, uint64 _maxParticipants) {
         if (_ticketAmount == 0) {
-            ticketAmount = 0.02 ether;
+            ticketAmount = 2 wei;
         } else {
             ticketAmount = _ticketAmount;
         }
@@ -55,7 +54,7 @@ contract Lottery is Pausable {
     }
 
     function setMaxParticipants(uint64 _maxParticipants) external {
-        require(_maxParticipants != 0, "Partipants cannot be zero");
+        require(_maxParticipants != 0, "Participants cannot be zero");
 
         maxParticipant = _maxParticipants;
     }
@@ -79,7 +78,7 @@ contract Lottery is Pausable {
     }
 
     function runLottery() external {
-        require(lotteries[currentLottery].participants.length >= 2, "There must be at least partipants");
+        require(lotteries[currentLottery].participants.length >= 2, "There must be at least participants");
 
         super._pause();
 
