@@ -2,6 +2,7 @@
 pragma solidity >=0.7.0 <=0.8.2;
 
 import "@openzeppelin/contracts/utils/Pausable.sol";
+import "hardhat/console.sol";
 
 contract Lottery is Pausable {
 
@@ -27,7 +28,7 @@ contract Lottery is Pausable {
 
     constructor(uint256 _ticketAmount, uint64 _maxParticipants) {
         if (_ticketAmount == 0) {
-            ticketAmount = 2 wei;
+            ticketAmount = 0.02 ether;
         } else {
             ticketAmount = _ticketAmount;
         }
@@ -75,6 +76,10 @@ contract Lottery is Pausable {
 
     function getCurrentParticipants() external view returns (uint256) {
         return lotteries[currentLottery].participants.length;
+    }
+
+    function getCurrentEtherPrize() external view returns (uint256) {
+        return address(this).balance;
     }
 
     function runLottery() external {
